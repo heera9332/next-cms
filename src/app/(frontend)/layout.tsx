@@ -1,6 +1,7 @@
+import "@/app/globals.css";
 import type { Metadata } from "next";
 import { Inter, Fira_Code } from "next/font/google";
-import "./globals.css";
+import { AppProvider } from "@/contexts/app-context";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -26,8 +27,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${fira.variable} font-sans antialiased`}>
-        {children}
+      <body
+        className={`${inter.variable} ${fira.variable} font-sans antialiased`}
+      >
+        <AppProvider>{children}</AppProvider>
       </body>
     </html>
   );

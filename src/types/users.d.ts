@@ -1,0 +1,2 @@
+export type UserDoc = mongoose.Document & Omit<z.infer<typeof zUser>, "_id"> & { _id: Types.ObjectId };
+export type UserMetaDoc = mongoose.Document & Omit<z.infer<typeof zUserMeta>, "_id"> & { _id: Types.ObjectId };
