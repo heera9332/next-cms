@@ -42,12 +42,12 @@ const data = {
   navMain: [
     {
       title: "Media",
-      url: "#",
+      url: "/dashboard/media",
       icon: Videotape,
       items: [
         {
           title: "View all",
-          url: "#",
+          url: "/dashboard/media",
         },
         {
           title: "Create",
@@ -57,16 +57,16 @@ const data = {
     },
     {
       title: "Posts",
-      url: "#",
+      url: "/dashboard/posts",
       icon: Bot,
       items: [
         {
           title: "View all",
-          url: "#",
+          url: "/dashboard/posts",
         },
         {
           title: "Create",
-          url: "#",
+          url: "/dashboard/posts/edit",
         },
       ],
     },
@@ -78,7 +78,7 @@ const data = {
       items: [
         {
           title: "General",
-          url: "#",
+          url: "/dashboard/settings",
         },
       ],
     },

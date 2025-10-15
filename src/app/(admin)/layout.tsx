@@ -58,14 +58,19 @@ export default function RootLayout({
                   <Breadcrumb>
                     <BreadcrumbList>
                       <BreadcrumbItem className="hidden md:block">
-                        <BreadcrumbLink href="#">Dashboard</BreadcrumbLink>
+                        <BreadcrumbLink href="/dashboard">Dashboard</BreadcrumbLink>
                       </BreadcrumbItem>
                       <BreadcrumbSeparator className="hidden md:block" />
                     </BreadcrumbList>
                   </Breadcrumb>
                 </div>
               </header>
-              {children}
+
+              <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+                <div className="grid auto-rows-min gap-4 md:grid-cols-3">
+                  {children}
+                </div>
+              </div>
             </SidebarInset>
           </SidebarProvider>
         </AppProvider>

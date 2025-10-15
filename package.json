@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@editorjs/editorjs": "^2.31.0",
     "@hookform/resolvers": "^5.2.2",
     "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-collapsible": "^1.1.12",
@@ -20,11 +21,13 @@
     "@radix-ui/react-slot": "^1.2.3",
     "@radix-ui/react-tabs": "^1.1.13",
     "@radix-ui/react-tooltip": "^1.2.8",
+    "@types/jsonwebtoken": "^9.0.10",
     "argon2": "^0.44.0",
     "axios": "^1.12.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "jose": "^6.1.0",
+    "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.545.0",
     "mongoose": "^8.19.1",
     "next": "15.2.0",
