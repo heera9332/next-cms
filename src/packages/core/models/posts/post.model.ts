@@ -86,18 +86,7 @@ const PostSchema = new Schema<PostDoc>(
 PostSchema.virtual("id").get(function (this: HydratedDocument<PostDoc>) {
   return this._id.toString();
 });
-
-const stripIdTransform = (_: any, ret: any) => {
-  if (ret._id) {
-    ret.id = ret._id.toString();
-    delete ret._id;
-  }
-  // keep virtuals (id) already enabled below
-  return ret;
-};
-
-PostSchema.set("toJSON", { virtuals: true, versionKey: false, transform: stripIdTransform });
-PostSchema.set("toObject", { virtuals: true, versionKey: false, transform: stripIdTransform });
+ 
 
 /** Indexes */
 PostSchema.index(
@@ -150,9 +139,7 @@ PostMetaSchema.index({ post_id: 1, meta_key: 1 }, { unique: true });
 /** virtual id + strip _id on meta */
 PostMetaSchema.virtual("id").get(function (this: HydratedDocument<PostMetaDoc>) {
   return this._id.toString();
-});
-PostMetaSchema.set("toJSON", { virtuals: true, versionKey: false, transform: stripIdTransform });
-PostMetaSchema.set("toObject", { virtuals: true, versionKey: false, transform: stripIdTransform });
+}); 
 
 export const PostMetaModel =
   (mongoose.models.PostMeta as mongoose.Model<PostMetaDoc>) ||
@@ -180,13 +167,7 @@ const PostRevisionSchema = new Schema<PostRevisionDoc>(
 );
 
 PostRevisionSchema.index({ post_id: 1, rev: -1 }, { unique: true });
-
-/** virtual id + strip _id on revisions */
-PostRevisionSchema.virtual("id").get(function (this: HydratedDocument<PostRevisionDoc>) {
-  return this._id.toString();
-});
-PostRevisionSchema.set("toJSON", { virtuals: true, versionKey: false, transform: stripIdTransform });
-PostRevisionSchema.set("toObject", { virtuals: true, versionKey: false, transform: stripIdTransform });
+ 
 
 export const PostRevisionModel =
   (mongoose.models.PostRevision as mongoose.Model<PostRevisionDoc>) ||

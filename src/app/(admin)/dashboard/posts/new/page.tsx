@@ -23,6 +23,8 @@ export default async function Page() {
     menuOrder: 0,
   });
 
+  console.log("create doc > ", doc)
+
   // your editor route as requested:
   redirect(`/dashboard/posts/${doc.id}/edit`);
 }

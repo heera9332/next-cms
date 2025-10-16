@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { PostModel } from "@/packages/core/models/posts/post.model"; // adjust path
-import EditorClient from "./_EditorClient";
+import EditorClient from "./page.client";
 
 export default async  function Page({ params }: { params: { id: string } }) {
   const post = await PostModel.findById(params.id).lean({ virtuals: true });

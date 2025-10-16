@@ -16,6 +16,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { AppProvider } from "@/contexts/app-context";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -44,6 +45,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${fira.variable} font-sans antialiased`}
       >
+        <Toaster/>
         <AppProvider>
           <SidebarProvider>
             <AppSidebar />
@@ -67,9 +69,7 @@ export default function RootLayout({
               </header>
 
               <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-                <div className="grid auto-rows-min gap-4 md:grid-cols-3">
                   {children}
-                </div>
               </div>
             </SidebarInset>
           </SidebarProvider>

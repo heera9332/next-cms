@@ -6,6 +6,7 @@ import { slugify } from "@/lib/slugify";
 import z from "zod";
 import { UserDoc, UserMetaDoc } from "@/types/users";
 import type { HydratedDocument } from "mongoose";
+import leanVirtuals from "mongoose-lean-virtuals";
 
 const UserSchema = new Schema<UserDoc>(
   {
@@ -167,3 +168,5 @@ export const UserMeta = {
     return rows.map(r => ({ key: r.meta_key, value: r.meta_value }));
   },
 };
+
+ 
