@@ -232,8 +232,8 @@ export default function EditorClient({ initial }: { initial: Initial }) {
           </div>
 
           <Separator />
-          <div className="flex gap-2">
-            <Button onClick={save} disabled={saving}>
+          <div className="flex gap-2 justify-end">
+            <Button onClick={save} disabled={saving} className="px-6">
               {saving ? "Saving…" : "Save"}
             </Button>
           </div>

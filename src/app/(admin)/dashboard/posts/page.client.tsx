@@ -169,9 +169,9 @@ export default function PostsControls({
           <div className="md:col-span-1 flex items-end">
             <Button
               variant="outline"
-              size="sm"
+              size="lg"
               onClick={resetAll}
-              className="w-full h-9 gap-2"
+              className="w-full h-12 gap-2 mt-1"
               aria-busy={isPending}
             >
               <RotateCcw className="h-4 w-4" />

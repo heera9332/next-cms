@@ -124,4 +124,7 @@
     @apply bg-background text-foreground;
   }
 }
- 
+
+button, a, link {
+  cursor: pointer;
+}

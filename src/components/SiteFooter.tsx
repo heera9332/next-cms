@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 export function SiteFooter() {
   return (
     <footer className="border-t border-border/60 bg-background/70 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto px-4 py-8 md:py-12">
+      <div className="max-w-7xl mx-auto px-4 py-8 md:py-12">
         {/* Top */}
         <div className="grid gap-8 md:grid-cols-4">
           {/* Brand */}

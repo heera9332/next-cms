@@ -23,16 +23,8 @@ export const metadata: Metadata = {
 };
 
 const NAV = [
-  { label: "Home", href: "/" },
-  {
-    label: "Products",
-    children: [
-      { label: "Overview", href: "/products" },
-      { label: "Pricing", href: "/pricing" },
-      { label: "Docs", href: "/docs" },
-    ],
-  },
-  { label: "Blog", href: "/blog" },
+  { label: "Home", href: "/" }, 
+  { label: "Blogs", href: "/blogs" },
   { label: "Contact", href: "/contact" },
 ] as const;
 

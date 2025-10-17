@@ -46,6 +46,7 @@ export interface PostDoc extends mongoose.Document {
   publishedAt?: Date;
   isDeleted: boolean;
   ancestors: Types.ObjectId[];
+  updatedAt?: Date;
 }
 
 const PostSchema = new Schema<PostDoc>(

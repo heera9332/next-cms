@@ -74,9 +74,7 @@ export default async function Page({
         statusDefault={status}
         typeDefault={type}
         limitDefault={String(perPage)}
-      />
-
-      <Separator />
+      /> 
 
       {/* Table on md+, cards on small screens */}
       <div className="hidden md:block overflow-x-auto rounded border">
@@ -95,7 +93,7 @@ export default async function Page({
               <tr key={p.id} className="border-t">
                 <td className="p-3">
                   <Link
-                    href={`/dashboard/posts/${p._id}/page`}
+                    href={`/dashboard/posts/${p._id}/edit`}
                     className="font-medium hover:underline"
                   >
                     {p.title || "(Untitled)"}
@@ -136,7 +134,7 @@ export default async function Page({
       {/* Mobile cards */}
       <div className="md:hidden space-y-3">
         {items.map((p) => (
-          <div key={p.id} className="rounded border p-3">
+          <div key={p._id} className="rounded border p-3">
             <div className="flex items-start justify-between gap-2">
               <div>
                 <Link href={`/dashboard/posts/${p.id}/page`} className="font-medium hover:underline">

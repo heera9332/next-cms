@@ -213,50 +213,7 @@ export function SiteHeader({ nav, logo, cta, renderRight }: Props) {
     </>
   );
 }
-
-function DesktopDropdown({ item }: { item: NavItem }) {
-  const [open, setOpen] = useState(false);
-  const btnRef = useRef<HTMLButtonElement>(null);
-
-  return (
-    <div
-      className="relative"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
-    >
-      <button
-        ref={btnRef}
-        type="button"
-        aria-haspopup="menu"
-        aria-expanded={open}
-        className="rounded px-3 py-2 text-sm font-medium text-foreground/80 hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        onClick={() => setOpen((v) => !v)}
-      >
-        {item.label}
-        <span className="ml-1 inline-block align-middle">▾</span>
-      </button>
-      {open && (
-        <div
-          role="menu"
-          className="absolute right-0 mt-2 min-w-48 rounded-md border bg-popover p-1 text-popover-foreground shadow-lg"
-        >
-          {item.children!.map((c) => (
-            <Link
-              key={c.label}
-              href={c.href}
-              target={c.target}
-              className="block rounded px-3 py-2 text-sm hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              role="menuitem"
-            >
-              {c.label}
-            </Link>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
-
+  
 function MobileCollapsible({
   item,
   onSelect,
