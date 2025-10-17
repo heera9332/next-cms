@@ -77,10 +77,11 @@ export default async function Page({
       /> 
 
       {/* Table on md+, cards on small screens */}
-      <div className="hidden md:block overflow-x-auto rounded border">
+      <div className="hidden md:block overflow-x-auto rounded-xl border">
         <table className="w-full text-sm">
           <thead className="bg-muted/50">
             <tr className="text-left">
+              <th className="p-3">S.No.</th>
               <th className="p-3 w-[40%]">Title</th>
               <th className="p-3">Status</th>
               <th className="p-3">Type</th>
@@ -89,8 +90,9 @@ export default async function Page({
             </tr>
           </thead>
           <tbody>
-            {items.map((p) => (
+            {items.map((p, idx: number) => (
               <tr key={p.id} className="border-t">
+                <td className="p-3 uppercase text-xs">{idx+1}</td>
                 <td className="p-3">
                   <Link
                     href={`/dashboard/posts/${p._id}/edit`}
@@ -99,7 +101,7 @@ export default async function Page({
                     {p.title || "(Untitled)"}
                   </Link>
                   <div className="text-xs text-muted-foreground">
-                    /{p.slug}
+                    {p.slug}
                   </div>
                 </td>
                 <td className="p-3">

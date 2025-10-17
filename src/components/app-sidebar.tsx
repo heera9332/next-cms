@@ -5,7 +5,8 @@ import {
   AudioWaveform,
   Bot,
   GalleryVerticalEnd,
-  Settings2, 
+  Settings2,
+  Users,
   Videotape,
 } from "lucide-react";
 
@@ -81,6 +82,11 @@ const data = {
           url: "/dashboard/settings",
         },
       ],
+    },
+    {
+      title: "Users",
+      url: "/dashboard/users",
+      icon: Users,
     },
   ],
 };
