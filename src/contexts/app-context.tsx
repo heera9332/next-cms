@@ -57,6 +57,7 @@ export const AppProvider: React.FC<React.PropsWithChildren> = ({ children }) => 
             cfg.__isRetry = true;
             return axios(cfg);                      // retry original request
           } catch (e) {
+            console.log(e)
             // refresh failed -> ensure signed out locally
             setUser(null);
           }
@@ -92,6 +93,7 @@ export const AppProvider: React.FC<React.PropsWithChildren> = ({ children }) => 
 
   const login = useCallback((u: User | null, _token?: string) => {
     // server already set cookies; we just cache user
+    console.log(_token)
     setUser(u);
   }, [setUser]);
 

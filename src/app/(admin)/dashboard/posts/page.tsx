@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const runtime = "nodejs";
 
 import Link from "next/link";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge"; 
 import { PostModel } from "@/packages/core/models/posts/post.model";
 import { format } from "date-fns";
 import PostsControls from "./page.client";
@@ -135,8 +135,8 @@ export default async function Page({
 
       {/* Mobile cards */}
       <div className="md:hidden space-y-3">
-        {items.map((p) => (
-          <div key={p._id} className="rounded border p-3">
+        {items.map((p, idx: number) => (
+          <div key={idx} className="rounded border p-3">
             <div className="flex items-start justify-between gap-2">
               <div>
                 <Link href={`/dashboard/posts/${p.id}/page`} className="font-medium hover:underline">

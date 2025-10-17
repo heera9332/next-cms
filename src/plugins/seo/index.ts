@@ -5,6 +5,6 @@ addFilter("render:html", async (html: string) => {
   return html;
 });
 
-addAction("post:created", async (post) => {
+addAction("post:created", async () => {
   // ping search engine webhook, etc.
 });

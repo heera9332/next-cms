@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,                    // 👈 override Next.js default
+    "outDir": "dist",
+    "rootDir": ".",                     // or folder containing server.ts
+    "module": "es2022",
+    "target": "es2020",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "incremental": true,
+    "tsBuildInfoFile": "dist/tsconfig.server.tsbuildinfo"
+  },
+  "include": ["server.ts"]              // 👈 if your file is src/server.ts, change this
+}

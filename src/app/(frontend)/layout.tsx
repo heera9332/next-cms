@@ -40,7 +40,7 @@ export default function RootLayout({
       >
         <AppProvider>
           <SiteHeader
-            nav={NAV as any}
+            nav={NAV}
             logo={{ src: "/next.svg", alt: "Tingily", width: 70, height: 70 }}
             cta={{ label: "Get Started", href: "/auth?action=register" }}
           />

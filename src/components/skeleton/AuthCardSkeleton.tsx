@@ -32,7 +32,7 @@ const FallbackSkeleton: React.FC<React.ComponentProps<"div">> = ({
   />
 );
 
-const Skeleton = (ShadcnSkeleton as any) ?? FallbackSkeleton;
+const Skeleton = ShadcnSkeleton ?? FallbackSkeleton;
 
 const FieldSkeleton = ({ labelWidth = "w-20" }: { labelWidth?: string }) => (
   <div className="grid gap-2">

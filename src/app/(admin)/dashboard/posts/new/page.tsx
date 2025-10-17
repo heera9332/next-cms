@@ -1,5 +1,5 @@
-export const runtime = "nodejs";
-
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 import { redirect } from "next/navigation";
 import { PostModel } from "@/packages/core/models/posts/post.model";
 import { slugify } from "@/lib/slugify";

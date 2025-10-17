@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * @author: Heera Singh
  * @date: 22-03-2025
@@ -124,7 +125,7 @@ class FilterManager extends PriorityHookBag<FilterCallback<any, any[]>> {
         if (next === Bail) break;
         if (next !== undefined) out = next as T;
       } catch (err: unknown) {
-        log.debug?.(`Error in filter '${String(hook)}': ${errToString(err)}`);
+        console.log(`Error in filter '${String(hook)}': ${errToString(err)}`);
       }
       if (item.once) this.removeById(hook, item.id);
     }

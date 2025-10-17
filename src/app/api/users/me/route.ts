@@ -31,6 +31,7 @@ export async function GET() {
 
     // 4️⃣ Success — return current user
     return NextResponse.json({ user });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     console.error("GET /api/users/me error:", err);
     return NextResponse.json(
