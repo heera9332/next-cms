@@ -177,10 +177,12 @@ function UserAuthPage() {
                   });
                   login(data?.user, data?.token); // token is cookie; arg kept for API parity
                   setMsg({ type: "success", text: "Logged in successfully." });
+                  toast.success("Login success");
                   router.push(redirectTo);
                 } catch (e: any) {
                   const errorMessage =
-                    e?.response?.data?.error || "Login failed.";
+                  e?.response?.data?.error || "Login failed.";
+                  toast.error("Login failed.");
                   setMsg({ type: "error", text: errorMessage });
                   toast.error(errorMessage);
                 }

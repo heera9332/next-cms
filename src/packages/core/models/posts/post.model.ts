@@ -100,6 +100,12 @@ PostSchema.index({ status: 1, publishedAt: -1 });
 PostSchema.index({ title: "text", excerpt: "text" });
 PostSchema.index({ type: 1, parentId: 1, menuOrder: 1 });
 
+// Example (adjust fields/weights as needed)
+PostSchema.index(
+  { title: "text", slug: "text", excerpt: "text" },
+  { weights: { title: 10, slug: 6, excerpt: 4 }, name: "post_text_idx" }
+);
+
 PostSchema.pre<HydratedDocument<PostDoc>>("save", async function (next) {
   try {
     if (this.isModified("parentId")) {

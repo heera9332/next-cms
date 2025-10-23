@@ -1,10 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-export const runtime = "nodejs";
-
 import Link from "next/link";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge"; 
+import { Badge } from "@/components/ui/badge";
 import { PostModel } from "@/packages/core/models/posts/post.model";
 import { format } from "date-fns";
 import PostsControls from "./page.client";
@@ -12,24 +9,24 @@ import PostsControls from "./page.client";
 type SearchParams = {
   q?: string;
   status?: "draft" | "published" | "private" | "archived" | "all";
-  page?: string;       // 1-based
-  limit?: string;      // default 20
-  type?: string;       // "post" | "page" | custom
+  page?: string; // 1-based
+  limit?: string; // default 20
+  type?: string; // "post" | "page" | custom
 };
 
-export default async function Page({
-  searchParams,
-}: {
+interface PageProps {
   searchParams: SearchParams;
-}) {
+}
+
+export default async function Page({ searchParams }: PageProps) {
   const {
     q = "",
     status = "all",
     page = "1",
     limit = "20",
     type = "post",
-  } = searchParams || {};
-
+  } = await searchParams || {};
+  
   const pageNum = Math.max(1, parseInt(page || "1", 10) || 1);
   const perPage = Math.min(100, Math.max(1, parseInt(limit || "20", 10) || 20));
 
@@ -46,11 +43,14 @@ export default async function Page({
     PostModel.countDocuments(filter),
   ]);
 
-  console.log(items)
+  // console.log(items);
 
   const totalPages = Math.max(1, Math.ceil(total / perPage));
 
-  const statusColor: Record<string, "secondary" | "default" | "destructive" | "outline"> = {
+  const statusColor: Record<
+    string,
+    "secondary" | "default" | "destructive" | "outline"
+  > = {
     draft: "secondary",
     published: "default",
     private: "outline",
@@ -74,7 +74,7 @@ export default async function Page({
         statusDefault={status}
         typeDefault={type}
         limitDefault={String(perPage)}
-      /> 
+      />
 
       {/* Table on md+, cards on small screens */}
       <div className="hidden md:block overflow-x-auto rounded-xl border">
@@ -92,7 +92,7 @@ export default async function Page({
           <tbody>
             {items.map((p, idx: number) => (
               <tr key={p.id} className="border-t">
-                <td className="p-3 uppercase text-xs">{idx+1}</td>
+                <td className="p-3 uppercase text-xs">{idx + 1}</td>
                 <td className="p-3">
                   <Link
                     href={`/dashboard/posts/${p._id}/edit`}
@@ -100,9 +100,7 @@ export default async function Page({
                   >
                     {p.title || "(Untitled)"}
                   </Link>
-                  <div className="text-xs text-muted-foreground">
-                    {p.slug}
-                  </div>
+                  <div className="text-xs text-muted-foreground">{p.slug}</div>
                 </td>
                 <td className="p-3">
                   <Badge variant={statusColor[p.status] || "secondary"}>
@@ -115,16 +113,28 @@ export default async function Page({
                     ? format(new Date(p.updatedAt), "dd MMM yyyy, HH:mm")
                     : "—"}
                 </td>
-                <td className="p-3 text-right">
-                  <Link href={`/dashboard/posts/${p._id}/edit`} className="text-blue-700 hover:underline">
+                <td className="p-3 text-right flex justify-end gap-2 items-center">
+                  <Link
+                    href={`/dashboard/posts/${p._id}/edit`}
+                    className="text-blue-700 hover:underline"
+                  >
                     Edit
+                  </Link>
+                  <Link
+                    href={`/dashboard/posts/${p._id}/edit`}
+                    className="text-red-700 hover:underline"
+                  >
+                    Trash
                   </Link>
                 </td>
               </tr>
             ))}
             {items.length === 0 && (
               <tr>
-                <td colSpan={5} className="p-6 text-center text-muted-foreground">
+                <td
+                  colSpan={5}
+                  className="p-6 text-center text-muted-foreground"
+                >
                   No posts found.
                 </td>
               </tr>
@@ -139,18 +149,29 @@ export default async function Page({
           <div key={idx} className="rounded border p-3">
             <div className="flex items-start justify-between gap-2">
               <div>
-                <Link href={`/dashboard/posts/${p.id}/page`} className="font-medium hover:underline">
+                <Link
+                  href={`/dashboard/posts/${p.id}/page`}
+                  className="font-medium hover:underline"
+                >
                   {p.title || "(Untitled)"}
                 </Link>
                 <div className="text-xs text-muted-foreground">/{p.slug}</div>
               </div>
-              <Badge variant={statusColor[p.status] || "secondary"}>{p.status}</Badge>
+              <Badge variant={statusColor[p.status] || "secondary"}>
+                {p.status}
+              </Badge>
             </div>
             <div className="mt-2 text-xs text-muted-foreground">
-              {p.updatedAt ? format(new Date(p.updatedAt), "dd MMM yyyy, HH:mm") : "—"} · {p.type}
+              {p.updatedAt
+                ? format(new Date(p.updatedAt), "dd MMM yyyy, HH:mm")
+                : "—"}{" "}
+              · {p.type}
             </div>
             <div className="mt-2">
-              <Link href={`/dashboard/posts/${p.id}/page`} className="text-blue-700 text-sm hover:underline">
+              <Link
+                href={`/dashboard/posts/${p.id}/page`}
+                className="text-blue-700 text-sm hover:underline"
+              >
                 Edit
               </Link>
             </div>
@@ -170,7 +191,11 @@ export default async function Page({
           <span className="text-sm text-muted-foreground">
             Page {pageNum} of {totalPages}
           </span>
-          <PageLink page={pageNum + 1} disabled={pageNum >= totalPages} label="Next" />
+          <PageLink
+            page={pageNum + 1}
+            disabled={pageNum >= totalPages}
+            label="Next"
+          />
         </div>
       )}
     </div>
@@ -178,11 +203,25 @@ export default async function Page({
 }
 
 /** Simple server-side pagination link component */
-function PageLink({ page, disabled, label }: { page: number; disabled?: boolean; label: string }) {
+function PageLink({
+  page,
+  disabled,
+  label,
+}: {
+  page: number;
+  disabled?: boolean;
+  label: string;
+}) {
   const href = page < 1 ? "#" : `?page=${page}`;
   return disabled ? (
-    <Button variant="outline" disabled size="sm">{label}</Button>
+    <Button variant="outline" disabled size="sm">
+      {label}
+    </Button>
   ) : (
-    <Link href={href}><Button variant="outline" size="sm">{label}</Button></Link>
+    <Link href={href}>
+      <Button variant="outline" size="sm">
+        {label}
+      </Button>
+    </Link>
   );
 }

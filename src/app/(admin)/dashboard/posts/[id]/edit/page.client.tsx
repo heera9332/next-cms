@@ -163,7 +163,7 @@ export default function EditorClient({ initial }: { initial: Initial }) {
 
           <div
             id={holderId}
-            className="min-h-[320px] rounded-xl border p-4 bg-white prose max-w-none"
+            className="min-h-[320px] rounded-xl border p-4 bg-white prose max-w-none py-8"
           />
 
           <div className="space-y-2">

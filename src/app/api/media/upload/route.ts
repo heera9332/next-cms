@@ -10,8 +10,7 @@ export async function POST(req: Request) {
   const form = await req.formData();
   const file = form.get("file") as File | null;
   if (!file) return NextResponse.json({ error: "no_file" }, { status: 400 });
-
-  // ⚠️ example: local disk; replace with S3/R2 in production
+ 
   const bytes = Buffer.from(await file.arrayBuffer());
   const uploadDir = path.join(process.cwd(), "public", "uploads");
   await mkdir(uploadDir, { recursive: true });
