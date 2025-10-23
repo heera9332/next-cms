@@ -1,30 +1,16 @@
+// src/app/dashboard/media/new/page.tsx
+export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
-export const revalidate = 0;
-import { redirect } from "next/navigation";
-import { PostModel } from "@/packages/core/models/posts/post.model";
-import { slugify } from "@/lib/slugify";
+
+import MediaForm, { MediaInitial } from "@/components/media/MediaForm";
 
 export default async function Page() {
-  // Basic unique slug for brand-new untitled drafts
-  const base = "untitled";
-  const candidate = `${base}-${Date.now()}`;
+  // No doc yet; form will create after upload
+  const initial: MediaInitial | null = null;
 
-  const doc = await PostModel.create({
-    type: "post",
-    title: "Untitled",
-    slug: slugify(candidate),
-    excerpt: "",
-    content: { time: Date.now(), blocks: [], version: "2.x" },
-    status: "draft",
-    visibility: "public",
-    locale: "en",
-    taxonomies: { categories: [], tags: [] },
-    parentId: null,
-    menuOrder: 0,
-  });
-
-  console.log("create doc > ", doc)
-
-  // your editor route as requested:
-  redirect(`/dashboard/posts/${doc.id}/edit`);
+  return (
+    <div>
+      <MediaForm initial={initial} />
+    </div>
+  );
 }
