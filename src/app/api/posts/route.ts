@@ -1,6 +1,6 @@
 // export const runtime = "nodejs";
 
-import { NextResponse } from "next/server"; 
+import { NextResponse } from "next/server";
 import { PostModel } from "@/packages/core/models/posts/post.model";
 
 type Status = "draft" | "published" | "private" | "archived" | "all";
@@ -32,7 +32,11 @@ export async function GET(req: Request) {
       } else {
         // short query fallback (case-insensitive partial)
         const rx = new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i");
-        filter.$or = [{ title: rx }, { slug: rx }, { excerpt: rx }, { content: rx }];
+        filter.$or = [
+          { title: rx },
+          { slug: rx },
+          { excerpt: rx }, 
+        ];
       }
     }
 
@@ -40,35 +44,57 @@ export async function GET(req: Request) {
 
     const projection = useText ? { score: { $meta: "textScore" } } : {};
     const sort = useText
-      ? { score: { $meta: "textScore" }, status: 1, publishedAt: -1, updatedAt: -1 }
+      ? {
+          score: { $meta: "textScore" },
+          status: 1,
+          publishedAt: -1,
+          updatedAt: -1,
+        }
       : { status: 1, publishedAt: -1, updatedAt: -1 };
 
     const [items, total] = await Promise.all([
-      PostModel.find(filter, projection).sort(sort).skip(skip).limit(limit).lean({ virtuals: true }),
+      PostModel.find(filter, projection)
+        .sort(sort)
+        .skip(skip)
+        .limit(limit)
+        .lean({ virtuals: true }),
       PostModel.countDocuments(filter),
     ]);
 
     const totalPages = Math.max(1, Math.ceil(total / limit));
 
     return NextResponse.json({
-      items,
-      meta: { page, limit, total, totalPages, hasPrev: page > 1, hasNext: page < totalPages, q, status, type },
+      docs: items,
+      page,
+      limit,
+      total,
+      totalPages,
+      hasPrev: page > 1,
+      hasNext: page < totalPages,
+      q,
+      status,
+      type,
     });
   } catch (err) {
     console.error("GET /api/posts error:", err);
-    return NextResponse.json({ ok: false, error: "Failed to fetch posts" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to fetch posts" },
+      { status: 500 }
+    );
   }
 }
-
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
     // You can validate/sanitize `body` here.
     const created = await PostModel.create(body);
-    return NextResponse.json({ ok: true, item: created }, { status: 201 });
+    return NextResponse.json({ item: created }, { status: 201 });
   } catch (err) {
     console.error("POST /api/posts error:", err);
-    return NextResponse.json({ ok: false, error: "Failed to create post" }, { status: 400 });
+    return NextResponse.json(
+      { error: "Failed to create post" },
+      { status: 400 }
+    );
   }
 }
