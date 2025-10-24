@@ -80,7 +80,7 @@ export function SiteHeader({ nav, logo, cta, renderRight }: Props) {
         id="site-header"
         role="banner"
       >
-        <div className={["mx-auto max-w-7xl", ""].join(" ")}>
+        <div className={["mx-auto 2xl:max-w-8xl max-w-7xl px-0 md:px-4", ""].join(" ")}>
           <div className="flex h-16 items-center px-4">
             <div className="flex flex-1 items-center gap-3">
               <Link

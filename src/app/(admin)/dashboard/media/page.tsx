@@ -92,7 +92,7 @@ export default async function Page({ searchParams }: PageProps) {
           </thead>
           <tbody>
             {items.map((p, idx: number) => (
-              <tr key={p.id} className="border-t">
+              <tr key={idx} className="border-t">
                 <td className="p-3 uppercase text-xs">{idx + 1}</td>
                 <td className="p-3">
                   <Link

@@ -56,7 +56,7 @@ export default function MediaUpload({
     validate(file);
     const fd = new FormData();
     fd.append("file", file);
-    const res = await fetch("/api/media/upload", {
+    const res = await fetch("/api/media", {
       method: "POST",
       body: fd,
       credentials: "include",

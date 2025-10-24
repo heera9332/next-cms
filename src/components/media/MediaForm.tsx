@@ -18,7 +18,6 @@ import {
 } from "@/components/ui/select";
 import toast from "react-hot-toast";
 import MediaUpload, { MediaItem } from "@/components/media/MediaUpload";
-import { MediaPreview } from "./MediaPreview";
 
 type Status = "draft" | "published" | "private" | "archived";
 type Visibility = "public" | "private" | "password";
@@ -100,7 +99,9 @@ export default function MediaForm({ initial }: Props) {
       try {
         const fd = new FormData();
         fd.append("file", file);
-        const res = await fetch("/api/media/upload", {
+        fd.append("postId", id); // <-- tells API to REPLACE instead of CREATE
+
+        const res = await fetch("/api/media", {
           method: "POST",
           body: fd,
           credentials: "include",
@@ -108,7 +109,6 @@ export default function MediaForm({ initial }: Props) {
         if (!res.ok) throw new Error("Upload failed");
         const j = await res.json();
 
-        // Update UI with new file info
         const newUrl = j?.url as string;
         const newMime = j?.media?.mime as string;
         const newSize = Number(j?.media?.size ?? 0);
@@ -116,16 +116,6 @@ export default function MediaForm({ initial }: Props) {
         setUrl(newUrl || url);
         setMime(newMime || mime);
         setSize(newSize || size);
-
-        // Persist to the same post id
-        await axios.patch(`/api/posts/${id}`, {
-          content: {
-            url: newUrl,
-            type: newMime,
-            size: newSize,
-            name: j?.media?.title ?? "",
-          },
-        });
 
         toast.success("File replaced");
         router.refresh();
@@ -201,7 +191,7 @@ export default function MediaForm({ initial }: Props) {
   ]);
 
   return (
-    <div className="max-w-7xl mx-auto p-4 space-y-6">
+    <div className="p-4 space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">
           {isNew ? "Add Media" : "Edit Media"}
@@ -220,12 +210,24 @@ export default function MediaForm({ initial }: Props) {
 
           {url ? (
             <>
-              <MediaPreview
-                url={url}
-                mime={mime}
-                title={title || "Media"}
-                height={224}
-              />
+              <div className="flex items-center gap-2">
+                <input
+                  id="replace-input"
+                  type="file"
+                  accept="image/*,video/*,audio/*,application/pdf"
+                  onChange={onReplaceInput}
+                  hidden
+                />
+                <label htmlFor="replace-input">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    disabled={!id || replacing}
+                  >
+                    {replacing ? "Replacing…" : "Replace file"}
+                  </Button>
+                </label>
+              </div>
 
               <div className="text-xs text-muted-foreground">
                 {mime || "file"}{" "}
